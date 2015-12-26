@@ -13,7 +13,7 @@ def server(server_id, interface, port, container):
 
     while True:
         message = sock.recv()
-        print(message + ' to Server {0}'.format(server_id))
+        print(message.decode('ascii') + ' to Server {0}'.format(server_id))
         sock.send_string("Server {0} is responding".format(server_id))
         container.put({'server': server_id, 'message': message})
         time.sleep(5)

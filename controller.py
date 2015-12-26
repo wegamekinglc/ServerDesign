@@ -3,7 +3,10 @@
 from threading import Thread
 import zmq
 from server import server
-from Queue import Queue
+try:
+    from Queue import Queue
+except ImportError:
+    from queue import Queue
 
 
 def controller(interface, port, container, workers):
@@ -29,7 +32,7 @@ def controller(interface, port, container, workers):
     # do the scheduling for incoming request
     while True:
         message = sock.recv()
-        print(message + ' to Controller')
+        print(message.decode('ascii') + ' to Controller')
         cur = client_count % workers
         sock.send_json(working_server[cur])
         print(working_server[cur])
@@ -43,7 +46,7 @@ if __name__ == "__main__":
     controller(interface='127.0.0.1',
                port=8890,
                container=queue,
-               workers=4)
+               workers=15)
 
     while queue.qsize():
         print(queue.get())

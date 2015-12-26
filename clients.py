@@ -25,7 +25,7 @@ def client(client_id, host, port):
     for i in range(15):
         sock.send_string('Hi server! this is client {0} for the {1}th time'.format(client_id, i))
         message = sock.recv()
-        print(message + ' to client {0}'.format(client_id))
+        print(message.decode('ascii') + ' to client {0}'.format(client_id))
 
     sock.close()
 

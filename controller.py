@@ -46,7 +46,7 @@ if __name__ == "__main__":
     controller(interface='127.0.0.1',
                port=8890,
                container=queue,
-               workers=15)
+               workers=8)
 
     while queue.qsize():
         print(queue.get())
